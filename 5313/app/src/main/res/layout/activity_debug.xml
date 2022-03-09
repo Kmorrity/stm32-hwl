@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_debug"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    tools:context="xiaotongren.wifi.actvity.DebugActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
+
+
+            <View
+                android:layout_height="1px"
+                android:background="#3030a1"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent">
+
+            </View>
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="#cab7b7">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="接收区域"
+                    android:id="@+id/textView_udp_receive"
+                    />
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/edittext_udp_receive_port"
+                    android:gravity="center"
+                    android:layout_marginLeft="30dp"
+                    android:hint="本地端口"
+                    android:inputType="number"
+                    android:text="12536"
+
+                    />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Switch
+                    android:id="@+id/switch_is_receive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"/>
+
+
+            </LinearLayout>
+
+
+
+
+            <View
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_height="1px"
+                android:background="#be58ad"
+                android:layout_width="fill_parent">
+            </View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edittext_udp_send_ip"
+                    android:layout_weight="1"
+                    android:hint="发送 IP"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:text="192.168.4.1"
+                    />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edittext_udp_send_port"
+                    android:layout_weight="2"
+                    android:hint="发送端口"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:text="12536"
+                    />
+
+            </LinearLayout>
+
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="#cab7b7">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="发送历史"
+                    android:id="@+id/textView_udp_send"
+                    />
+            </ScrollView>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edittext_udp_send"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="发送内容"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@drawable/ic_menu_send"
+                    android:id="@+id/button_udp_send"
+
+                    />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </ScrollView>
+
+</RelativeLayout>

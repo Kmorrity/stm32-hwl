@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <!--<color name="theme_blank_bg">#C7EDCC</color>-->
+    <color name="theme_blank_bg">#f2f5ee</color>
+    <color name="theme_text_black">#160306</color>
+
+    <!-- 主界面 模块颜色 -->
+    <color name="theme_block_black">#94c7b7</color>
+</resources>

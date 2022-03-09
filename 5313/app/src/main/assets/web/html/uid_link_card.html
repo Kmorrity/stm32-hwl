@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+	</style>
+
+	<head>
+		<meta charset='UTF-8'>
+
+		<title>Responsive Table</title>
+
+		<meta charset="utf-8">
+		<meta id="viewport" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,
+		minimum-scale=1.0,user-scalable=no,viewport-fit=cover">
+
+		<link rel="stylesheet" href="../css/table_user_style.css">
+		<link rel="stylesheet" href="../js/element-ui/theme-chalk/index.css">
+
+
+
+	</head>
+
+	<body>
+
+
+
+
+		<div id="container" class="container">
+
+			<el-row>
+				<el-col :span="4">
+					<el-button type="primary" icon="el-icon-back" circle onclick="javascript:window.location.href='./main.html'">
+					</el-button>
+				</el-col>
+				<el-col :span="16">
+	
+					<h1  style="text-align: center;font-family: monospace; ">UID登记</h1>
+				</el-col>
+
+			</el-row>
+			
+			<h1 id="show_card" style="text-align: center;font-family: monospace;color: #0000FF;">[卡号]</h1>
+
+
+
+
+
+
+
+
+
+
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>用户名</th>
+						<th>密码</th>
+						<th>UID</th>
+						<th>角色</th>
+						<th>快递信息</th>
+						<th>时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<!-- <td>{{ index + 1 }}</td> -->
+						<td>{{ value.id}}</td>
+						<td>{{ value.user_name }}</td>
+						<td>{{ value.user_passwd }}</td>
+						<td v-if="value.uid ==null"> <span style="color: #0000FF;">空</span>  </td>
+						<td v-else-if="value.uid ==''"><span style="color: #0000FF;">空</span> </td>
+						<td v-else-if="value.uid !=null"><span style="color: #0000FF;">{{ value.uid }}</span></td>
+						<td>{{ value.role }}</td>
+
+						<td v-if="value.note ==null">无</td>
+						<td v-else-if="value.note ==''">无</td>
+						<td v-else-if="value.note !=null">{{ value.note }}</td>
+
+						<td>{{ value.time}}</td>
+						<td>
+							<a href="javascript:;" @click="confirm(value)">确认</a> 
+						</td>
+					</tr>
+
+
+
+
+				</tbody>
+			</table>
+
+
+
+
+		</div>
+
+
+
+
+
+	</body>
+
+
+
+
+	<script src="../js/jquery-3.4.1.min.js"></script>
+	<script src="../js/project_config.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script src="../js/element-ui/index.js"></script>
+
+
+
+
+	<script>
+		function request_sensor_option(option, data, callback) {
+
+
+			var delete_url = cfg_sensor_url;
+
+			delete_url = delete_url + "?option=" + option + "&data=" + JSON.stringify(data);
+
+			// console.log(delete_url);
+
+
+			$.ajax({
+				type: 'get',
+				dataType: "json",
+				url: delete_url,
+				success: function(data) {
+					callback(data);
+				},
+			});
+		}
+
+
+
+		function request_user_option(option, data, callback) {
+
+
+			var delete_url = cfg_user_monitor_url;
+
+			delete_url = delete_url + "?option=" + option + "&data=" + JSON.stringify(data);
+
+			$.ajax({
+				type: 'get',
+				dataType: "json",
+				url: delete_url,
+				success: function(data) {
+					callback(data);
+				},
+			});
+		}
+
+
+
+
+
+
+
+
+		var app = new Vue({
+			el: '#container',
+			data: {
+				value: {},
+				card_value : ""
+			},
+
+
+			created() {
+
+				timer_request = setInterval(this.refresh, 2000);
+
+
+				var uid_item = localStorage.getItem(cfg_localStorage_uid_link);
+				var uid_json = JSON.parse(uid_item);
+
+				// console.log(uid_item);
+				// console.log(JSON.stringify(uid_json));
+				this.value = uid_json;
+
+
+			},
+			methods: {
+
+
+				refresh() {
+
+					_self = this;
+
+					request_sensor_option("select", " ", function(data) {
+
+
+						for (let item of data) {
+							if (item.sensor_type == "card1") {
+								// _self.uid = item.sensor_value;
+								
+								$("#show_card").html('['+item.sensor_value+']');
+								
+						
+								_self.card_value = item.sensor_value ;
+							}
+						}
+
+					});
+
+				},
+				confirm(value)
+				{
+					
+					_self = this;
+					
+					var temp_value =  value;
+					temp_value.uid =  _self.card_value;
+					 
+
+					request_user_option("update", temp_value, function(data) {
+
+						console.log(JSON.stringify(data));
+						console.log(_self.value.user_name );
+
+						for (let item of data) {
+							if (item.user_name == _self.value.user_name ) {
+ 
+								_self.value = item;
+
+							}
+						}
+					
+					});
+					
+					
+				}
+
+			},
+
+			watch: {}
+		});
+	</script>
+
+</html>

@@ -1,0 +1,137 @@
+*{
+
+    margin: 0;
+    padding: 0;
+
+};
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #dfd5d5;
+
+}
+.box_login{
+
+    width:320px;
+    padding:40px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background:#222;
+    text-align:center;
+    border-radius: 24px;
+}
+
+.box_login h1{
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+
+.box_login input[type = "text"],.box_login input[type = "password"]{
+
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 1px solid rgb(67, 111, 255);
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+
+}
+
+.box_login input[type = "text"]:focus,.box_login input[type = "password"]:focus{
+    width: 240px;
+    border-color: #dbdbdb;
+}
+
+#login_button_login{
+
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid rgb(18, 167, 37);
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+
+}
+#login_button_login:hover{
+    background: rgb(18, 167, 37);
+}
+
+
+
+
+.title{
+
+    background-color:#333352;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+	font-size: 20px;
+	font-weight: 700;
+
+}
+
+.box_main_column{
+
+    width:360px;
+    padding:10px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0px);
+    
+}
+
+.box_main_line{
+    margin: 20px;
+    padding:20px;
+    display: flex;
+    align-items: center;
+
+    border-radius: 14px;
+    background-color: cornsilk;
+
+}
+
+.box_main_item{
+
+    flex: 1;
+    margin: 10px auto;
+
+}
+
+.main_button_link{
+
+    width: 100px;
+    height: 32px;
+    background-color: blueviolet;
+    border: 0px;
+    color: #fff;    
+    border-radius: 18px;
+    align-self: flex-end;
+
+    
+}
+
+.main_img{
+    width: 60px;
+    height: 40px;
+    padding-right: 20px;
+}

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+
+	<style>
+		[v-cloak] {
+				display: none;
+			}
+	</style>
+
+	<head>
+		<meta charset='UTF-8'>
+
+		<title>Responsive Table</title>
+
+		<meta charset="utf-8">
+		<meta id="viewport" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,
+		minimum-scale=1.0,user-scalable=no,viewport-fit=cover">
+
+		<link rel="stylesheet" href="../css/table_user_style.css">
+		<link rel="stylesheet" href="../js/element-ui/theme-chalk/index.css">
+
+
+
+	</head>
+
+	<body>
+
+
+
+
+		<div id="container" class="container">
+
+			<el-row>
+				<el-col :span="4">
+					<el-button type="primary" icon="el-icon-back" circle onclick="javascript:window.location.href='./main.html'"></el-button>
+				</el-col>
+				<el-col :span="16">
+					<h1 style="text-align: center;">用户信息</h1>
+				</el-col>
+
+			</el-row>
+
+
+
+
+
+
+
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>用户名</th>
+						<th>密码</th>
+						<th>UID</th>
+						<th>角色</th>
+						<th>快递信息</th>
+						<th>时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-cloak v-for="(item, index) of slist" >
+						<!-- <td>{{ index + 1 }}</td> -->
+						<td>{{ item.id}}</td>
+						<td>{{ item.user_name }}</td>
+						<td>{{ item.user_passwd }}</td>
+						<td  v-if="item.uid ==null"><a href="javascript:;" @click="uid_link_create(item)">绑定</a></td>
+						<td  v-else-if="item.uid ==''"><a href="javascript:;" @click="uid_link_create(item)">绑定</a></td>
+						<td  v-else-if="item.uid !=null"><a href="javascript:;" @click="uid_link_modify(item)">{{ item.uid }}</a></td>
+						<td>{{ item.role }}</td>
+								 
+						<td  v-if="item.note ==null">无</td>
+						<td  v-else-if="item.note ==''">无</td>
+						<td  v-else-if="item.note !=null">{{ item.note }}</td>
+						
+						<td>{{ item.time}}</td>
+						<td>
+							<a href="javascript:;" @click="showOverlay(item)">修改</a> |
+							<a href="javascript:;" @click="del(item)">删除</a>
+						</td>
+					</tr>
+
+
+
+
+				</tbody>
+			</table>
+
+
+
+
+
+			<model :list="selectedlist" :isactive="isActive" v-cloak @change="changeOverlay" @modify="modify"></model>
+
+
+
+		</div>
+
+
+
+
+
+	</body>
+
+
+
+
+	<script src="../js/jquery-3.4.1.min.js"></script>
+	<script src="../js/project_config.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script src="../js/element-ui/index.js"></script>
+
+
+
+
+	<script>
+		function request_option(option, data, callback) {
+
+
+			var delete_url = cfg_user_monitor_url;
+
+			delete_url = delete_url + "?option=" + option + "&data=" + JSON.stringify(data);
+
+			console.log(delete_url);
+
+
+			$.ajax({
+				type: 'get',
+				dataType: "json",
+				url: delete_url,
+				success: function(data) {
+					callback(data);
+				},
+			});
+		}
+
+
+
+
+
+
+		Vue.component('model', {
+			props: ['list', 'isactive'],
+			template: `<div class="overlay" v-show="isactive">
+				<div class="con">
+				
+					<h4 style="text-align: center">新增 | 修改</h4>
+		
+					<div class="content" >
+					
+ 
+	
+						
+						<div style="margin:10px auto;">
+							<div class="item_name">用户名:</div>
+							<input class="item_value" type="text" readonly="true"  v-model="modifylist.user_name">
+							<div style="clear: both;"></div>
+						</div>
+						
+						<div style="margin:10px auto;">
+							<div class="item_name">密码:</div>
+							<input class="item_value" type="text" v-model="modifylist.user_passwd">
+							<div style="clear: both;"></div>
+						</div>
+						
+						<div style="margin:10px auto;">
+							<div class="item_name">UID:</div>
+							<input class="item_value" type="text" readonly="true"  v-model="modifylist.uid">
+							<div style="clear: both;"></div>
+						</div>
+						
+						<div style="margin:10px auto;">
+							<div class="item_name">角色:</div>
+							<input class="item_value" type="text" readonly="true"  v-model="modifylist.role">
+							<div style="clear: both;"></div>
+						</div>
+						
+						<div style="margin:10px auto;">
+							<div class="item_name">备注:</div>
+							<input class="item_value" type="text" readonly="true"  v-model="modifylist.note">
+							<div style="clear: both;"></div>
+						</div>
+	
+						
+						<div style="margin: 20px 30px;">
+							<input class="item_name" style="font-size: 18px;text-align: center;"  type="button" @click="changeActive" value="取消">
+							<input class="item_value"  style="font-size: 18px;text-align: center;"  type="button" @click="modify" value="保存">
+						</div>
+
+					</div>
+				</div>
+			</div>`,
+			computed: {
+				modifylist() {
+					return JSON.parse(JSON.stringify(this.list));
+				}
+			},
+			methods: {
+				changeActive() {
+					this.$emit('change');
+				},
+				modify() {
+					this.$emit('modify', this.modifylist);
+				}
+			}
+		});
+		
+		
+		function filter(context , data)
+		{
+			
+			var user_name = localStorage.getItem(project_number+"user_name");
+			
+			console.log(JSON.stringify(data));
+
+			var data2 = [] ;
+			
+			for (let item of data) {
+			
+				if (item.user_name == user_name.trim() ) {
+					data2.push(item);
+				}  
+			}
+
+			context.setSlist(data2);
+		}
+
+
+
+		var app = new Vue({
+			el: '#container',
+			data: {
+				isActive: false, // 是否显示弹窗
+				isAddNew: true, //是否是添加数据
+				selected: -1, // 选择了哪条记录
+				selectedlist: {}, // 选中的信息
+				slist: [], //add default value here
+
+				searchlist: [],
+				list: []
+			},
+
+
+			created() {
+
+				// this.setSlist(this.list);
+
+				var _self = this;
+
+
+
+				request_option("select", null, function(data) {
+					_self.list = data;
+					
+					filter(_self , data);
+					
+				});
+
+
+
+
+			},
+			methods: {
+
+
+				// 修改数据
+				showOverlay(item) {
+
+					<!-- this.selected = index; -->
+
+					<!-- this.selected = index; -->
+					this.selectedlist = item;
+					this.changeOverlay();
+
+					this.isAddNew = false;
+
+				},
+				// 点击保存按钮
+				modify(value) {
+
+					_self = this;
+
+					console.log(JSON.stringify(value));
+
+					if (this.isAddNew) {
+						console.log("option is  insert");
+						request_option("insert", value, function(data) {
+
+							request_option("select", " ", function(data) {
+								console.log(JSON.stringify(data));
+							
+								filter(_self , data);
+								
+								_self.changeOverlay();
+							});
+
+						});
+					} else {
+						console.log("option is  update");
+
+						request_option("update", value, function(data) {
+
+							request_option("select", " ", function(data) {
+								console.log(JSON.stringify(data));
+
+								filter(_self , data);
+								_self.changeOverlay();
+							});
+
+						});
+
+					}
+
+
+
+
+				},
+
+
+
+				add: function() {
+					this.selectedlist = {
+						id: '',
+						user_name: '',
+						user_passwd: '',
+						note: '',
+						time: '',
+					};
+					this.selected = -1;
+					this.isAddNew = true;
+					this.isActive = true;
+				},
+				// delete list in index location
+
+				del(item) {
+
+					console.log(item);
+
+					_self = this;
+
+					request_option("delete", item, function(data) {
+						// _self.resource = data;
+
+						console.log(JSON.stringify(data));
+
+						_self.list = data;
+
+
+						_self.setSlist(data);
+
+					});
+				},
+				
+				
+				uid_link_create(item) {
+					
+					localStorage.setItem(cfg_localStorage_uid_link, JSON.stringify(item));
+					
+					if(project_uid_type=="face")
+					{
+						// window.location.replace("faceid.html?type=register");//登录成功就跳转到传感器监测页面
+						$(location).attr("href", "faceid.html?type=register");
+					}
+					else if(project_uid_type=="card")
+					{
+						window.location.replace("uid_link_card.html");//登录成功就跳转到传感器监测页面
+						$(location).attr("href", "uid_link_card.html");
+					}
+					else if(project_uid_type=="none")
+					{
+						// window.location.replace("uid_link_card.html");//登录成功就跳转到传感器监测页面
+					}
+					
+					
+					
+							 
+				},
+				uid_link_modify(item) {
+					
+					localStorage.setItem(cfg_localStorage_uid_link, JSON.stringify(item));
+					
+					if(project_uid_type=="face")
+					{
+						// window.location.replace("faceid.html?type=update");//登录成功就跳转到传感器监测页面
+						$(location).attr("href", "faceid.html?type=update");
+					}
+					else if(project_uid_type=="card")
+					{
+						window.location.replace("uid_link_card.html");//登录成功就跳转到传感器监测页面
+						$(location).attr("href", "uid_link_card.html");
+					}
+					else if(project_uid_type=="none")
+					{
+						// window.location.replace("uid_link_card.html");//登录成功就跳转到传感器监测页面
+					}
+				
+							 
+				},
+				
+
+
+
+
+				changeOverlay() {
+					this.isActive = !this.isActive;
+				},
+
+
+
+				// 获取需要渲染到页面中的数据
+				setSlist(arr) {
+					this.slist = JSON.parse(JSON.stringify(arr));
+				},
+
+
+				// 搜索
+				search(e) {
+					var v = e.target.value,
+						self = this;
+
+					self.searchlist = [];
+
+					if (v) {
+						var ss = [];
+						// 过滤需要的数据
+						this.list.forEach(function(item) {
+							if (item.user_name.indexOf(v) > -1) {
+								if (self.searchlist.indexOf(item.user_name) == -1) {
+									self.searchlist.push(item.user_name);
+								}
+								ss.push(item);
+							} else if (item.note.indexOf(v) > -1) {
+								if (self.searchlist.indexOf(item.note) == -1) {
+									self.searchlist.push(item.note);
+								}
+								ss.push(item);
+							} else if (item.user_passwd.indexOf(v) > -1) {
+								if (self.searchlist.indexOf(item.user_passwd) == -1) {
+									self.searchlist.push(item.user_passwd);
+								}
+								ss.push(item);
+							} else if (item.id.indexOf(v) > -1) {
+								if (self.searchlist.indexOf(item.id) == -1) {
+									self.searchlist.push(item.id);
+								}
+								ss.push(item);
+							}
+
+
+
+
+
+
+						});
+						this.setSlist(ss); // 将过滤后的数据给了slist
+					} else {
+						// 没有搜索内容，则展示全部数据
+						this.setSlist(this.list);
+					}
+				}
+			},
+			watch: {}
+		});
+	</script>
+
+</html>

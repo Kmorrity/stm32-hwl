@@ -1,0 +1,32 @@
+void HardWare_Init(void)  
+{
+  
+  NVIC_Configuration();           /* 配置NVIC中断模式 */
+  
+ // TIM2_PWM_Init( 100, 72);
+  //TIM1_PWM_Init( 100, 72);//不分频。PWM频率=72000/(899+1)=80Kh 
+  
+  delay_init();                   /* 延时函数初始化 */
+  //Adc_Init();                     /* ADC初始化 */
+ // OLED_Init();      //初始化OLED
+
+  //InitRc522();                    /* 初始化射频卡模 */
+  //MPU6050_initialize();      //MPU6050初始化
+  UARTx_Init();       //串口初始化
+  KEY_Init();
+  //GPIO_Init_Mode();               /* GPIO 初始化  ---- 一般用于简单的高低电平 */
+  // LED_Init();         //初始化与LED连接的硬件接口
+  // LCD_Init();         //LCD屏幕
+  //PID_Init(); //初始化PID */
+  
+  //GPIO_Init_Bell(); //蜂鸣器初始化
+  
+  TIM4_Int_Init(1000, 72);      /* 开TIM4定时中断 计数到为 1ms */
+  
+  
+  //TIM3_Encoder_Init(); //编码器初始化
+  //TIM5_Encoder_Init(); //编码器初始化
+  
+  //LDC_Init(); //初始化LDC1314
+ // Config_LDC(); //配置LDC1314
+}

@@ -1,0 +1,89 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<title>Document</title>
+</head>
+<body>
+	   <nav class="navbar navbar-default ">
+     	<div class="container-fluid">
+     		<div class="navbar-header"style="margin-left:5%;">
+     			<img src="img/logo.jpg" class="img-responsive img-circle" alt="Responsive image"style="width:16%;float: left;">
+     			<p class="pull-left navbar-brand"style="font-size: 24px;">~小童人电子~</p>
+     		</div>
+     	</div>
+    </nav>
+    <div id="myCarousel" class="carousel slide">
+	<div class="carousel-inner">
+		<div class="item active">
+			<div style="height: 140px;">
+			<h1 style="text-align: center;margin-top: 50px;">小童人电子</h1>
+            <p style="text-align: center;">欢迎使用小童人电子提供的设计</p>
+			</div>
+		</div>
+		<div class="item">
+			<div style="height: 140px;">
+			<h1 style="text-align: center;margin-top: 50px;">为何选择我们</h1>
+            <p style="text-align: center;">我们提供最优质的服务<br />我们提供最优惠的价格<br />我们掌握最核心的技术</p>
+			</div>
+		</div>
+       <div class="item">
+			<div style="height: 140px;">
+			<h1 style="text-align: center;margin-top: 50px;">我们可以提供</h1>
+            <p style="text-align: center;">ZigBee相关设计<br />单片机相关设计<br />Android Windows应用</p>
+			</div>
+		</div>
+	</div>
+	<a href="#myCarousel" data-slide = "prev"class="carousel-control left " >
+		<span class="glyphicon glyphicon-chevron-left"></span>
+	</a>
+	<a href="#myCarousel" data-slide = "next"class="carousel-control right">
+		<span class="glyphicon glyphicon-chevron-right">
+	</a>
+</div>
+<div class="container-fluid jumbotron"style="padding-top: 5px;">
+    <h2 style="text-align: center;padding-top:0;">使用说明</h2>
+    <div style="background: black;width: auto;height: 1px;"></div>
+    <p style="font-size: 18px;">
+一：本APP是使用WIFI通讯进行连接。
+<br /><br />
+   二：本APP设置：<br />
+  1：端口设置 （设置wifi连接端口）<br />
+  2：发送设置 （暂无）<br />
+  3：账户密码 （默认admin ，可以通过此更改）<br />
+  4：使用说明 （本设计说明）<br /><br />
+三：其中配置工具有3个选项：<br />
+  1：SmartLink （用于将WIFI模块连入路由器）<br />
+  2：WIFI设置  （设置WIFI模块的参数：如 ssid 密码）<br />
+  3：通讯调试  （可以对wifi模块通讯进行测试）<br />
+</p>
+<p><a id="call" class="btn btn-primary btn-lg" href="#">请联系我</a></p>
+</div>
+	
+	
+	
+	
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#myCarousel').carousel({
+			interval: 3000,
+			pause:'hover',
+		})      	
+
+});
+window.onload=function(){
+	var call=document.getElementById('call');
+	call.onclick=function(){
+		alert('QQ：1531638007')
+	}
+
+}
+</script>
+</body>
+</html>
+

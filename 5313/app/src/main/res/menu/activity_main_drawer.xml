@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_port"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="调试地址" />
+        <!--<item-->
+            <!--android:id="@+id/nav_send"-->
+            <!--android:icon="@drawable/ic_menu_send"-->
+            <!--android:title="发送设置" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_acount"-->
+            <!--android:icon="@drawable/ic_account_box"-->
+            <!--android:title="账户密码" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_help"-->
+            <!--android:icon="@drawable/ic_help"-->
+            <!--android:title="使用说明" />-->
+    </group>
+
+    <item android:title="配置工具">
+        <menu>
+            <item
+                android:id="@+id/nav_smartlink"
+                android:icon="@drawable/ic_menu_share"
+                android:title="SmartLink" />
+            <!--<item-->
+                <!--android:id="@+id/nav_wifi"-->
+                <!--android:icon="@drawable/ic_wifi_black"-->
+                <!--android:title="WIFI 设置" />-->
+
+            <!--<item-->
+                <!--android:id="@+id/nav_debug"-->
+                <!--android:icon="@drawable/ic_debug"-->
+                <!--android:title="通讯 调试" />-->
+        </menu>
+    </item>
+
+</menu>
