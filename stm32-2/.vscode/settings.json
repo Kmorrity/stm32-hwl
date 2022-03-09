@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "uart6050.h": "c",
+        "include.h": "c",
+        "myiic.h": "c",
+        "GPIO.C": "cpp",
+        "ws2812b.h": "c",
+        "stm32f10x.h": "c",
+        "protocol.h": "c",
+        "adc.h": "c",
+        "ringbuffer.h": "c",
+        "stdlib.h": "c",
+        "gps.h": "c",
+        "sys.h": "c",
+        "delay.h": "c",
+        "pm25.h": "c"
+    }
+}

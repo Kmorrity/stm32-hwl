@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">设计</string>
+
+    <string name="main_webview_url">file:///android_asset/web/index.html</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_connection">断开连接</string>
+    <string name="action_disconnection">打开连接</string>
+
+    <string name="login_fail">登录失败：请检查用户名密码</string>
+
+
+    <!-- Account -->
+    <string name="title_show_account">更改账户名及密码</string>
+
+    <!-- set port -->
+    <string name="title_show_set_port">请输入需要远程调试的地址</string>
+
+
+
+    <!-- Help -->
+    <string name="title_show_help">使用说明</string>
+
+
+
+
+
+
+</resources>

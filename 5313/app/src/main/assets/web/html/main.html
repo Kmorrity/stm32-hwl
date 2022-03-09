@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta id="viewport" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,
+		minimum-scale=1.0,user-scalable=no,viewport-fit=cover">
+
+		<title></title>
+
+		<link href="../css/mui.css" rel="stylesheet" />
+
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script src="../js/bootstrap.js"></script>
+
+
+	</head>
+
+
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">当前用户名称：<span id="label_user_name"></span> </h1>
+			<span onclick="javascript:window.location.href='login.html'"
+				class="mui-icon mui-icon-locked mui-pull-right"></span>
+		</header>
+
+		<div style=" margin-top: 80px;"></div>
+
+
+		<div class="mui-row">
+
+
+
+			<div id="main_account" class="mui-col-sm-6 mui-col-xs-12">
+				<div class="container">
+					<div class="jumbotron">
+
+						<p>账户信息及快递管理</p>
+						<p><a class="btn btn-primary btn-lg" role="button"
+								onclick="javascript:window.location.href='./user_manage.html'">
+								快递管理</a>
+						</p>
+					</div>
+				</div>
+			</div>
+
+
+			<div id="main_account_user" class="mui-col-sm-6 mui-col-xs-12">
+				<div class="container">
+					<div class="jumbotron">
+
+						<p>快递领取</p>
+						<p><a class="btn btn-primary btn-lg" role="button"
+								onclick="javascript:window.location.href='./user_manage_user.html'">
+								快递领取</a>
+						</p>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- 			<div class="mui-col-sm-6 mui-col-xs-12">
+				<div class="container">
+					<div class="jumbotron">
+
+						<p>管理传感器数据节点</p>
+
+						<p><a class="btn btn-primary btn-lg" role="button" onclick="javascript:window.location.href='./sensor_manage.html'">
+								设备管理</a>
+						</p>
+					</div>
+				</div>
+			</div> -->
+
+
+
+			<div id="main_sensor_monitor" class="mui-col-sm-6 mui-col-xs-12">
+				<div class="container">
+					<div class="jumbotron">
+
+						<p>监测数据及控制设备</p>
+						<p><a class="btn btn-primary btn-lg" role="button"
+								onclick="javascript:window.location.href='./sensor_monitor.html'">
+								设备监控</a>
+						</p>
+					</div>
+				</div>
+
+			</div>
+
+
+			<div id="main_history" class="mui-col-sm-6 mui-col-xs-12">
+				<div class="container">
+					<div class="jumbotron">
+
+						<p>查看传感器历史数据</p>
+						<p><a class="btn btn-primary btn-lg" role="button"
+								onclick="javascript:window.location.href='./sensor_history.html'">
+								历史数据</a>
+						</p>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+		</div>
+	</body>
+
+	<script src="../js/jquery-3.4.1.min.js"></script>
+	<script src="../js/project_config.js"></script>
+	<script>
+		var user_name = localStorage.getItem(project_number + "user_name");
+		var user_passwd = localStorage.getItem(project_number + "user_passwd");
+		var user_uid = localStorage.getItem(project_number + "user_uid");
+		var user_role = localStorage.getItem(project_number + "user_role");
+		var user_note = localStorage.getItem(project_number + "user_note");
+
+
+
+
+		// console.log(user_name + "    " + user_note);
+
+		$("#label_user_name").html(user_name);
+
+
+		if (user_role == "快递员") {
+			$("#main_account").show();
+			$("#main_account_user").hide();
+		} else {
+			$("#main_account").hide();
+			$("#main_account_user").show();
+			$("#main_sensor_monitor").hide();
+			$("#main_history").hide();
+		}
+	</script>
+
+
+
+</html>

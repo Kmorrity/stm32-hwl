@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+	
+	<style>
+			[v-cloak] {
+				display: none;
+			}
+			
+			/*
+			Generic Styling, for Desktops/Laptops 
+			*/
+			table { 
+				width: 100%; 
+				border-collapse: collapse; 
+			}
+			/* Zebra striping */
+			tr:nth-of-type(odd) { 
+				background: #eee; 
+			}
+			th { 
+				background: #333; 
+				color: white; 
+				font-weight: bold; 
+			}
+			td, th { 
+				padding: 6px; 
+				border: 1px solid #ccc; 
+				text-align: left; 
+			}
+	</style>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../js/element-ui/theme-chalk/index.css">
+
+	</head>
+
+	<body>
+		<script src="../js/mui.js"></script>
+		
+		
+		
+
+		<header  class="mui-bar mui-bar-nav">
+			<span onclick="javascript:window.location.href='./main.html'" class="mui-icon mui-icon-arrowleft"></span>
+			<h1  class="mui-title">历史数据</h1>
+			<!--<span id="pay_jIconfont2" class="mui-icon mui-icon-bars mui-pull-right"></span>-->
+		</header>
+
+
+ 
+ 
+
+
+		<div style=" margin-top: 60px; "></div>
+		
+		<div style="margin: auto 30px;">
+			<button  id="button_clean"  class="mui-btn mui-btn-royal mui-btn-outlined" style="padding: 10px; width: 100%;">清空历史数据</button>
+			
+		</div>
+
+
+		<div id="app">
+			<div style=" margin: 20px 30px;" >
+				
+				
+<!-- 				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse">
+						 &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; {{ item.sensor_name }} ：{{ item.sensor_value }} {{ item.sensor_note }} &emsp;&emsp;  时间：{{item.time}}
+					</li>
+				</ul> -->
+				
+				
+				<table>
+					<thead>
+						<tr>
+							<th>名称</th>
+							<th>数值</th>
+							<th>时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="item of source_data" >
+							<!-- <td>{{ index + 1 }}</td> -->
+							<td>{{ item.sensor_name }}</td>
+							<td>{{ item.sensor_value }}{{ item.sensor_note }}</td>
+							<td>{{ item.time }}</td>
+
+						</tr>
+						
+						
+				
+				
+					</tbody>
+				</table>
+				
+	
+			</div>
+			
+			
+		</div>
+		
+		
+		
+<!-- 		<div class="myui_block" style="margin: 50px 50px;">
+			
+			<button type="button" class="mui-btn mui-btn-blue" style="width: 100%; margin-right: 10px;" onclick="javascript:window.location.href='./sensor_history.html'">清空历史数据</button>
+		</div> -->
+
+	</body>
+
+
+
+
+	<script src="../js/jquery-3.4.1.min.js"></script>
+	<script src="../js/project_config.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data: {
+				source_data: []
+			},
+			created() {
+				<!-- this.setSlist(this.list); -->
+
+				var _self = this;
+				
+				console.log(cfg_sensor_history_url);
+
+				$.ajax({
+					type: 'get',
+					dataType: "json",
+					url: cfg_sensor_history_url,
+					success: function(data) {
+
+						console.log(JSON.stringify(data));
+
+						_self.source_data = data;
+
+					}
+				});
+
+
+
+
+			},
+			methods: {
+
+
+			},
+			watch: {}
+		});
+		
+		
+		
+		
+		
+		$("#button_clean").click(function(){
+		   
+		   request_delete = cfg_sensor_history_url+"?option=delete";
+		   
+		   $.ajax({
+		   	type: 'get',
+		   	dataType: "json",
+		   	url: request_delete,
+		   	success: function(data) {
+		   
+		   		console.log(JSON.stringify(data));
+		   
+		   		app.source_data = data;
+		   
+		   	},
+			
+		   });
+		   
+		});
+		
+		
+	</script>
+
+
+
+
+
+</html>

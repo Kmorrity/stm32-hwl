@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body style="background-image: url(../img/18.jpg);background-size: 100%;">
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+
+
+
+		<h3 style="text-align: center; color: white;margin-top: 100px;">基于stm32的校园智能快递柜</h3>
+
+
+		<div style="margin:100px auto; width: 80%;max-width: 500px; ">
+
+
+
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>用户</label>
+					<input type="text" class="mui-input-clear" placeholder="请输入用户" id="login_input_name">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input type="password" class="mui-input-password" placeholder="请输入密码" id="login_input_passwd">
+				</div>
+
+			</form>
+
+			<div class="mui-button-row" style="margin-top: 10px;">
+				<button type="button" style="width: 50%;" class="mui-btn mui-btn-green "
+					id="login_button_login">账户登录</button>
+				<!-- <div style="float: right;margin-right: 20px;" class="mui-btn mui-btn-green " onclick="javascript:window.location.href='./user.html'">注册</div> -->
+			</div>
+
+			<div id="button_login_faceid" class="mui-button-row" style="margin-top: 10px;">
+				<button type="button" style="width: 50%;" class="mui-btn mui-btn-green "
+					id="login_button_login_face">人脸登录</button>
+				<!-- <div style="float: right;margin-right: 20px;" class="mui-btn mui-btn-green " onclick="javascript:window.location.href='./user.html'">注册</div> -->
+			</div>
+
+
+
+		</div>
+
+		<div style="margin-top: 100px; text-align: center;  color: #2AC845;color: #C8C7CC ">
+
+			<!--<h3>制作人:xxx</h3>
+			<h3>学号:xxx</h3>
+			<h3>学院:xxx</h3>-->
+
+		</div>
+
+	</body>
+
+
+	<script type="text/javascript" src="../js/project_config.js"></script>
+	<script>
+		
+		
+		
+		
+		
+		if(project_uid_type == "face")
+		{
+			$("#button_login_faceid").show();
+		}
+		else
+		{
+			$("#button_login_faceid").hide();
+		}
+		
+		
+		
+		//登录验证
+		function login(url_login) {
+
+			console.log(url_login);
+
+			$.ajax({
+				type: 'get',
+				dataType: "json",
+				url: url_login,
+				success: function(data) {
+
+					//如果服务器验证通过会返回 success,否则登录失败
+
+					for (let item of data) {
+
+						if (item != null) {
+							var user_name = item.user_name
+							var user_passwd = item.user_passwd;
+							var user_uid = item.uid;
+							var user_role = item.role;
+							var user_note = item.note;
+
+							localStorage.setItem(project_number + "user_name", user_name);
+							localStorage.setItem(project_number + "user_passwd", user_passwd);
+							localStorage.setItem(project_number + "user_uid", user_uid);
+							localStorage.setItem(project_number + "user_role", user_role);
+							localStorage.setItem(project_number + "user_note", user_note);
+
+
+							console.log(user_role);
+
+
+							window.location.replace("main.html"); //登录成功就跳转到传感器监测页面
+
+							return;
+						}
+
+					}
+
+					mui.toast('验证失败', {
+						duration: 'long',
+						type: 'div'
+					});
+
+
+
+				},
+			});
+		}
+
+
+
+
+		//检查用户及密码输入是否为空
+		function login_check() {
+			var user_name = $("#login_input_name").val().replace(/\s+/g, "");
+			var user_passwd = $("#login_input_passwd").val().replace(/\s+/g, "");
+
+			if (user_name == "" || user_passwd == "") {
+				return false;
+			}
+
+			return true;
+		}
+
+
+		function my_login() {
+			//改函数负责登录验证
+
+
+			//login_check() 用来检查登录输入是否非空
+
+			if (login_check()) {
+				//如果登录输入的用户名合法,那么就进行远程登录验证.
+
+
+				//构建登录验证的http请求
+				var request_url = cfg_login_url + "?name=" + $("#login_input_name").val() + "&passwd=" + $(
+					"#login_input_passwd").val();
+
+				console.log(request_url);
+
+				login(request_url); //进行登录验证
+
+
+			} else {
+				mui.toast('用户名或密码为空，请检查！', {
+					duration: 'long',
+					type: 'div'
+				});
+			}
+		}
+
+		$("#login_button_login").click(my_login); //绑定点击事件,当登录按钮点击后调用 my_login函数进行登录处理
+
+		$("#login_button_login_face").click(
+			function() {
+				$(location).attr("href", "./faceid.html?type=login");
+			}
+		);
+	</script>
+
+
+
+
+</html>
